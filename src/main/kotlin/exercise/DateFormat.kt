@@ -1,5 +1,6 @@
 package ru.yole.jkid
 
+import ru.yole.jkid.deserialization.JKidException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -12,6 +13,6 @@ class DateFormatSerializer(private val format: String): ValueSerializer<Date> {
     override fun fromJsonValue(jsonValue: Any?): Date =
             (jsonValue as? String)?.let {
                 SimpleDateFormat(format).parse(it)
-            } ?: Date()
+            } ?: throw JKidException("Unexpected value $jsonValue")
 }
 
